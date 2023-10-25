@@ -1,0 +1,10 @@
+#sidebar a.active {
+  color: green;
+  font-weight: 600;
+  background: none;
+ 
+}
+#sidebar a:hover {
+  background: none;
+ 
+}
