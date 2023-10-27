@@ -1,0 +1,62 @@
+[
+    {
+      "name": "John Smith",
+      "expert_area": "Engine Optimization",
+      "picture": "https://i.ibb.co/8BmTM7x/1.jpg",
+      "car_part_specialization": "Engine"
+    },
+    {
+      "name": "Emily Johnson",
+      "expert_area": "Transmission Systems",
+      "picture": "https://i.ibb.co/DWPFwLH/2.jpg",
+      "car_part_specialization": "Transmission"
+    },
+    {
+      "name": "Michael Davis",
+      "expert_area": "Electrical Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Battery"
+    },
+    {
+      "name": "Sarah White",
+      "expert_area": "Suspension Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Suspension"
+    },
+    {
+      "name": "David Brown",
+      "expert_area": "Brake Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Brakes"
+    },
+    {
+      "name": "Jessica Lee",
+      "expert_area": "Body and Interior Design",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Interior Panels"
+    },
+    {
+      "name": "Ryan Clark",
+      "expert_area": "Fuel Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Fuel Pump"
+    },
+    {
+      "name": "Linda Hall",
+      "expert_area": "Climate Control Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Air Conditioning"
+    },
+    {
+      "name": "Kevin Adams",
+      "expert_area": "Safety Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Airbags"
+    },
+    {
+      "name": "Amanda Wilson",
+      "expert_area": "Tire and Wheel Systems",
+      "picture": "https://i.ibb.co/LkXsYWd/3.jpg",
+      "car_part_specialization": "Tires"
+    }
+  ]

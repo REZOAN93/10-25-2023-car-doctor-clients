@@ -6,11 +6,11 @@ import Footer from "./Component/Footer/Footer";
 function App() {
   return (
     <div>
-      <div className=" mx-auto max-w-7xl">
+      <div>
         <Header></Header>
         <Outlet></Outlet>
       </div>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 }
