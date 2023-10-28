@@ -35,19 +35,24 @@ const CheckOut = () => {
       serviceName: data.title,
       price: data.price,
     };
-    axios.post("http://localhost:5000/booking", bookingData).then((data) => {
-      console.log(data.data);
-      if (data.data.insertedId) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Service is Submitted",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        form.reset();
-      }
-    });
+    axios
+      .post(
+        "https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking",
+        bookingData
+      )
+      .then((data) => {
+        console.log(data.data);
+        if (data.data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Service is Submitted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          form.reset();
+        }
+      });
   };
   return (
     <div>

@@ -9,22 +9,26 @@ import axios from "axios";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
-  
+
   const [booking, setBooking] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/booking?email=${user?.email}`)
+    fetch(
+      `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setBooking(data));
-      
   }, [user?.email]);
 
   const handleBookingConfirm = (id) => {
-    fetch(`http://localhost:5000/booking/${id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ status: "Confirm" }),
-    })
+    fetch(
+      `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking/${id}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status: "Confirm" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -55,9 +59,12 @@ const Bookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/booking/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");

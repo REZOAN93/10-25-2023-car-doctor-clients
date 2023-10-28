@@ -14,7 +14,9 @@ const Products = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch(
+        "https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/products"
+      );
       return res.json();
     },
   });

@@ -28,13 +28,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/bookings",
-        element: <PrivateRoute><Bookings /> </PrivateRoute> ,
+        element: (
+          <PrivateRoute>
+            <Bookings />{" "}
+          </PrivateRoute>
+        ),
       },
       {
         path: "/services/:id",
         element: <CheckOut />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(
+            `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/services/${params.id}`
+          ),
       },
       {
         path: "/blog",
