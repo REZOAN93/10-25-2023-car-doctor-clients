@@ -1,15 +1,49 @@
 import img1 from "../../assets/images/login/login.svg";
 import logoimg1 from "../../assets/bx_bxl-facebook.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logoimg2 from "../../assets/bx_bxl-linkedin.png";
 import logoimg3 from "../../assets/google1.png";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const { userGoogleLogin } = useContext(AuthContext);
+  const { userGoogleLogin,signInWithEmail } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [showPassword, setshowPassword] = useState(false);
+
   const provider = new GoogleAuthProvider();
+
+  const handleLogInUser = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signInWithEmail(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        if (user) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "You have successfully LogIn",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
+  };
 
   const handleGoogleLogin = () => {
     userGoogleLogin(provider)
@@ -21,15 +55,11 @@ const Login = () => {
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        setError(errorMessage);
         // ...
       });
   };
@@ -40,8 +70,8 @@ const Login = () => {
         <div className="text-center lg:text-left w-full h-[500px]">
           <img className=" w-full h-[500px]" src={img1} alt="" />
         </div>
-        <div className="card w-8/12 mx-auto h-[500px] shadow-2xl bg-base-100">
-          <form className=" px-8 pt-6 rounded-lg">
+        <div className="card w-8/12 mx-auto shadow-2xl bg-base-100">
+          <form onSubmit={handleLogInUser} className=" px-8 pt-6 rounded-lg">
             <h1 className=" text-center font-bold text-4xl mb-3">Login</h1>
             <div className="form-control">
               <label className="label">
@@ -49,27 +79,43 @@ const Login = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
                 required
               />
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                className="input input-bordered"
-                required
-              />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
+            <div className="form-control relative">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="password"
+            className="input input-bordered"
+            required
+          />
+          <label className="label">
+            <p>
+              <input type="checkbox" name="remember me" id="" />
+              <span className="ms-3">Remember Me</span>
+            </p>
+          </label>
+          <span
+            onClick={() => setshowPassword(!showPassword)}
+            className=" cursor-pointer absolute right-5 top-12 text-2xl"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+        {error ? (
+            <>
+              <p className=" text-red-600 text-sm text-center">{error}</p>
+            </>
+          ) : (
+            ""
+          )}
             <div className="form-control mt-3">
               <button className="btn bg-[#FF3811] text-white text-xl capitalize">
                 Sign In
