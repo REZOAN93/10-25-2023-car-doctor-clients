@@ -8,9 +8,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import Swal from "sweetalert2";
+import axios from "axios";
+import useAuth from "../Customhooks/useAuth";
 
 const Login = () => {
-  const { userGoogleLogin,signInWithEmail } = useContext(AuthContext);
+  // const { userGoogleLogin, signInWithEmail } = useContext(AuthContext);
+  const { userGoogleLogin, signInWithEmail } = useAuth();
+
   const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -28,15 +32,13 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         // ...
-        if (user) {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "You have successfully LogIn",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You have successfully LogIn",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
@@ -86,36 +88,36 @@ const Login = () => {
               />
             </div>
             <div className="form-control relative">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="password"
-            className="input input-bordered"
-            required
-          />
-          <label className="label">
-            <p>
-              <input type="checkbox" name="remember me" id="" />
-              <span className="ms-3">Remember Me</span>
-            </p>
-          </label>
-          <span
-            onClick={() => setshowPassword(!showPassword)}
-            className=" cursor-pointer absolute right-5 top-12 text-2xl"
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
-        {error ? (
-            <>
-              <p className=" text-red-600 text-sm text-center">{error}</p>
-            </>
-          ) : (
-            ""
-          )}
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="password"
+                className="input input-bordered"
+                required
+              />
+              <label className="label">
+                <p>
+                  <input type="checkbox" name="remember me" id="" />
+                  <span className="ms-3">Remember Me</span>
+                </p>
+              </label>
+              <span
+                onClick={() => setshowPassword(!showPassword)}
+                className=" cursor-pointer absolute right-5 top-12 text-2xl"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            {error ? (
+              <>
+                <p className=" text-red-600 text-sm text-center">{error}</p>
+              </>
+            ) : (
+              ""
+            )}
             <div className="form-control mt-3">
               <button className="btn bg-[#FF3811] text-white text-xl capitalize">
                 Sign In

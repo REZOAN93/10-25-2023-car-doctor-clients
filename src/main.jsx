@@ -6,7 +6,9 @@ import "./index.css";
 import { router } from "./Component/Router/Router.jsx";
 import AuthProvider from "./Component/Context/AuthProvider";
 
+
 const queryClient = new QueryClient();
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

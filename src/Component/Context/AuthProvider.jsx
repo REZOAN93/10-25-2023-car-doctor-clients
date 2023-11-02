@@ -8,6 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import app from "../../Firebase/Firebase.init";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -19,7 +20,29 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setLoading(false);
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUsers(currentUser);
+      // console.log("Current Users in AuthProvider", currentUser);
+      if (currentUser) {
+        axios.post(
+          "https://10-25-2023-car-doctor-server.vercel.app/jwt",
+          loggedUser,
+          {
+            withCredentials: true,
+          }
+        );
+        // .then((res) => console.log(res.data));
+      } else {
+        axios.post(
+          "https://10-25-2023-car-doctor-server.vercel.app/logout",
+          loggedUser,
+          {
+            withCredentials: true,
+          }
+        );
+        // .then((res) => console.log(res.data));
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -38,11 +61,18 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const signInWithEmail = (email, password) => {
-    setLoading(true)
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const authInfo = { user, userGoogleLogin, userSignOut, userLoginWithEmail,signInWithEmail,loading };
+  const authInfo = {
+    user,
+    userGoogleLogin,
+    userSignOut,
+    userLoginWithEmail,
+    signInWithEmail,
+    loading,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

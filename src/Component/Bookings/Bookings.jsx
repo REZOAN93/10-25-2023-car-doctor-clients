@@ -6,29 +6,36 @@ import { useQuery } from "@tanstack/react-query";
 import BookingDetails from "./BookingDetails";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAxiosSecure from "../Customhooks/useAxiosSecure";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
-
+  const axiosSecure = useAxiosSecure();
   const [booking, setBooking] = useState([]);
+  // const url = `https://10-25-2023-car-doctor-server.vercel.app/booking?email=${user?.email}`;
 
+  const url = `/booking?email=${user?.email}`;
   useEffect(() => {
-    fetch(
-      `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking?email=${user?.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => setBooking(data));
-  }, [user?.email]);
+    axiosSecure.get(url).then((res) => setBooking(res.data));
+  }, [url, axiosSecure]);
+
+  // useEffect(() => {
+  //   axios.get(url, { withCredentials: true }).then((res) => {
+  //     setBooking(res.data);
+  //   });
+  // }, []);
+
+  //   // fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking?email=${user?.email}`)
+  //   //   .then((res) => res.json())
+  //   //   .then((data) => setBooking(data));
+  //
 
   const handleBookingConfirm = (id) => {
-    fetch(
-      `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking/${id}`,
-      {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ status: "Confirm" }),
-      }
-    )
+    fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking/${id}`, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ status: "Confirm" }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -59,12 +66,9 @@ const Bookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking/${id}`,
-          {
-            method: "DELETE",
-          }
-        )
+        fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");

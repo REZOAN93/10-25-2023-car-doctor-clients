@@ -11,7 +11,7 @@ const ServiceArea = () => {
     queryKey: ["services"],
     queryFn: async () => {
       const res = await fetch(
-        "https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/services"
+        "https://10-25-2023-car-doctor-server.vercel.app/services"
       );
       return res.json();
     },
@@ -24,7 +24,7 @@ const ServiceArea = () => {
     return <p>{error.message}</p>;
   }
 
-  console.log(services);
+  // console.log(services);
   return (
     <div className=" my-10">
       <div className=" text-center space-y-3">

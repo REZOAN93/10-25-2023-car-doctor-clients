@@ -37,7 +37,7 @@ const CheckOut = () => {
     };
     axios
       .post(
-        "https://10-25-2023-car-doctor-server-44eunh6z4-rezoan93.vercel.app/booking",
+        "https://10-25-2023-car-doctor-server.vercel.app/booking",
         bookingData
       )
       .then((data) => {
