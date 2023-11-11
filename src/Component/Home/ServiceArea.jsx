@@ -1,28 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
 import ServiceDetails from "./ServiceDetails";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../Customhooks/useAxiosSecure";
 
 const ServiceArea = () => {
-  const {
-    data: services,
-    isPending,
-    error,
-    isError,
-  } = useQuery({
-    queryKey: ["services"],
-    queryFn: async () => {
-      const res = await fetch(
-        "https://10-25-2023-car-doctor-server.vercel.app/services"
-      );
-      return res.json();
-    },
-  });
+  const [asyc, setAsyc] = useState(true)
+  const axiosSecure = useAxiosSecure()
 
-  if (isPending) {
-    <div>Loading....</div>;
+  const [services, setServices] = useState([])
+  const [search, setSearch] = useState('')
+
+  const handleSearch = (event) => {
+    event.preventDefault()
+    const searchText = event.target.search.value;
+    setSearch(searchText)
   }
-  if (isError) {
-    return <p>{error.message}</p>;
-  }
+
+  useEffect(() => {
+    axiosSecure.get(`http://localhost:5000/services?sort=${asyc ? 'asyc' : 'dasyc'}&search=${search}`)
+      .then(res => {
+        setServices(res.data)
+      })
+  }, [asyc, axiosSecure, search])
+
+  // const { data: services, isPending, error, isError } = useQuery({
+  //   queryKey: ["services"],
+  //   queryFn: async () => {
+  //     const url=`http://localhost:5000/services?sort=${asyc ? 'asyc' : 'dasyc'}`
+  //     const res = await fetch(url);
+  //     return res.json();
+  //   },
+  // });
+
+  // if (isPending) {
+  //   <div>Loading....</div>;
+  // }
+  // if (isError) {
+  //   return <p>{error.message}</p>;
+  // }
 
   // console.log(services);
   return (
@@ -35,6 +50,22 @@ const ServiceArea = () => {
           humour, or randomised <br /> words which don't look even slightly
           believable.{" "}
         </p>
+        <div className=" flex  justify-center mx-auto gap-6">
+          <div >
+            <form onSubmit={handleSearch} action="" className="join">
+              <div>
+                <div>
+                  <input className="input input-bordered join-item" name="search" placeholder="Search" />
+                </div>
+              </div>
+              <div className="indicator">
+                {/* <span className="indicator-item badge badge-secondary">new</span> */}
+                <button className="btn join-item">Search</button>
+              </div>
+            </form>
+          </div>
+          <button onClick={() => setAsyc(!asyc)} className="btn btn-success">{asyc ? 'Price Low to High' : 'Price High to Low'}</button>
+        </div>
       </div>
       <div className=" grid grid-cols-3 gap-10 my-5">
         {services?.map((na) => (

@@ -6,17 +6,9 @@ import ProductDetails from "./ProductDetails";
 const Products = () => {
   const [dataLength, setDataLength] = useState(6);
   const [showResults, setShowResults] = useState(false);
-  const {
-    data: products,
-    error,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const res = await fetch(
-        "https://10-25-2023-car-doctor-server.vercel.app/products"
-      );
+  const { data: products, error, isPending, isError } = useQuery({
+    queryKey: ["products"], queryFn: async () => {
+      const res = await fetch("http://localhost:5000/products");
       return res.json();
     },
   });
@@ -49,9 +41,8 @@ const Products = () => {
         ))}
       </div>
       <div
-        className={`text-center mb-20 ${
-          showResults == true || products <= 6 ? "hidden" : ""
-        }`}
+        className={`text-center mb-20 ${showResults == true || products <= 6 ? "hidden" : ""
+          }`}
       >
         <button
           onClick={handleDonatedBtn}
