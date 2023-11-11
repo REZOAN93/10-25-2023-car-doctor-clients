@@ -17,7 +17,7 @@ const ServiceArea = () => {
   }
 
   useEffect(() => {
-    axiosSecure.get(`http://localhost:5000/services?sort=${asyc ? 'asyc' : 'dasyc'}&search=${search}`)
+    axiosSecure.get(`https://10-25-2023-car-doctor-server.vercel.app/services?sort=${asyc ? 'asyc' : 'dasyc'}&search=${search}`)
       .then(res => {
         setServices(res.data)
       })
@@ -26,7 +26,7 @@ const ServiceArea = () => {
   // const { data: services, isPending, error, isError } = useQuery({
   //   queryKey: ["services"],
   //   queryFn: async () => {
-  //     const url=`http://localhost:5000/services?sort=${asyc ? 'asyc' : 'dasyc'}`
+  //     const url=`https://10-25-2023-car-doctor-server.vercel.app/services?sort=${asyc ? 'asyc' : 'dasyc'}`
   //     const res = await fetch(url);
   //     return res.json();
   //   },

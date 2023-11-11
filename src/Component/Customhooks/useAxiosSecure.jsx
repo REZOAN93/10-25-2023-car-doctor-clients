@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://10-25-2023-car-doctor-server.vercel.app",
   withCredentials: true,
 });
 

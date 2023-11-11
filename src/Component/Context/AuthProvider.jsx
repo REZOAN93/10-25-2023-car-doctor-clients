@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
       // console.log("Current Users in AuthProvider", currentUser);
       if (currentUser) {
         axios.post(
-          "http://localhost:5000/jwt",
+          "https://10-25-2023-car-doctor-server.vercel.app/jwt",
           loggedUser,
           {
             withCredentials: true,
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
         // .then((res) => console.log(res.data));
       } else {
         axios.post(
-          "http://localhost:5000/logout",
+          "https://10-25-2023-car-doctor-server.vercel.app/logout",
           loggedUser,
           {
             withCredentials: true,

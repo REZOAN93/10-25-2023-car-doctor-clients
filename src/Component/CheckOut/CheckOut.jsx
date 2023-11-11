@@ -37,7 +37,7 @@ const CheckOut = () => {
     };
     axios
       .post(
-        "http://localhost:5000/booking",
+        "https://10-25-2023-car-doctor-server.vercel.app/booking",
         bookingData
       )
       .then((data) => {

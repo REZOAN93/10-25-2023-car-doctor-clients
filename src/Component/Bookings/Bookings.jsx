@@ -12,7 +12,7 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [booking, setBooking] = useState([]);
-  // const url = `http://localhost:5000/booking?email=${user?.email}`;
+  // const url = `https://10-25-2023-car-doctor-server.vercel.app/booking?email=${user?.email}`;
 
   const url = `/booking?email=${user?.email}`;
   useEffect(() => {
@@ -25,13 +25,13 @@ const Bookings = () => {
   //   });
   // }, []);
 
-  //   // fetch(`http://localhost:5000/booking?email=${user?.email}`)
+  //   // fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking?email=${user?.email}`)
   //   //   .then((res) => res.json())
   //   //   .then((data) => setBooking(data));
   //
 
   const handleBookingConfirm = (id) => {
-    fetch(`http://localhost:5000/booking/${id}`, {
+    fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ status: "Confirm" }),
@@ -66,7 +66,7 @@ const Bookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/booking/${id}`, {
+        fetch(`https://10-25-2023-car-doctor-server.vercel.app/booking/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

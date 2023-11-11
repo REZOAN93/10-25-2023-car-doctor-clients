@@ -8,7 +8,7 @@ const Products = () => {
   const [showResults, setShowResults] = useState(false);
   const { data: products, error, isPending, isError } = useQuery({
     queryKey: ["products"], queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch("https://10-25-2023-car-doctor-server.vercel.app/products");
       return res.json();
     },
   });
